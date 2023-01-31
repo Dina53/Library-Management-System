@@ -1,0 +1,399 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int bkc=2022,stc=100,f=1;
+
+void welcome();
+void adminLogin();
+void bookDetails();
+void signUp();
+void stLogin();
+void studentDetails();
+
+struct student
+{
+	char sn[50],pw[50];
+	int bkl,bkid;
+}s[100];
+
+struct book
+{
+	char bn[50],an[50];
+	int nc,isbn,lc;
+}b[100];
+
+int main()
+{
+	int a,b,p,sc,rn;
+	char n[50],spw[50];
+	category:
+		{
+		    
+			welcome();
+			if(f==1)
+	        printf("\nPlease choose the category: \n");
+	        else
+	        printf("You entered incorrect input please choose correct option\n");
+			printf("\t1.Admin\n\t2.Student\n\t3.Exit\n");
+			scanf("%d",&a);
+			if(a==1)
+			{
+			    //system("cls");
+				system("clear");
+				
+					welcome();
+				    printf("\n\nPlease enter login details:\n\n");
+				    name:
+					printf("Enter name:\n");	
+					scanf("%s",n);
+					pass:
+					printf("Enter password: \n");
+					scanf("%d",&p);
+					if(strcmp(n,"Dina")==0)
+					if(p==55555)
+					{
+						system("clear");
+						//system("cls");
+						welcome();
+						printf("\n\tLogin successfully!!..\n");
+					    adminLogin();
+					    goto category;
+					}
+					else
+					{
+						//system("cls");
+						system("clear");
+						welcome();
+						printf("\n\nEntered password incorrect please try again: \n");
+					    goto pass;
+					}
+					else
+					{
+						//system("cls");
+						system("clear");
+						welcome();
+						printf("\n\nEntered name incorrect please try again: \n");
+					    goto name;
+					}
+			}
+			
+			else if(a==2)
+			student:
+			{
+			    f=1;
+				//system("cls");
+				system("clear");
+				welcome();
+				if(f==1)
+				printf("\n\nPlease choose category:\n");
+				else
+				printf("You entered incorrect input please choose correct option\n");
+				printf("\t1.Sign up\n\t2.Sign in\n\t3.Exit\n");
+				scanf("%d",&sc);
+				if(sc==1)
+				{
+					//system("cls");
+					system("clear");
+					welcome();
+					printf("\n\nCreate account:\n");
+					signUp();
+					//system("cls");
+					system("clear");
+					goto student;
+				}
+				else if(sc==2)
+				{
+				     //system("cls");
+    				system("clear");
+    				registerNumber:
+    				welcome();
+    				printf("\nEnter register number:\n");
+    				scanf("%d",&rn);
+    				password:
+    				printf("Enter password:\n");
+    				scanf(" %s",spw);
+    				if(stc!=rn)
+    				if(strcmp(s[rn-100].pw,spw)==0)
+    				{
+    					//system("cls");
+    					system("clear");
+    					welcome();
+    					printf("\n\nLogged-in successfully!!\n");
+    					stLogin(rn-100);
+    					goto category;
+    					//system("cls");
+    					//system("clear");
+    				}
+    				else
+    				{
+    					printf("Incorrect register number\n");
+    					goto registerNumber;
+    				}
+    				else
+    			    {
+    					 printf("Password mismatch\n");
+    					 goto password;
+    				}
+    					
+				}
+					else if(sc==3)
+					{
+						//system("cls");
+						system("clear");
+						//welcome();
+						goto category;
+					}
+					else if(sc>=4)
+					{
+					    system("clear");
+					    f=0;
+					    goto student;
+					}
+			}
+			if(a==3)
+				printf("Thank you for using!!..\n");
+				else
+				{
+				    system("clear");
+				     
+				     f=0;
+				    goto category;
+				}
+		}
+		
+}
+void welcome()
+{
+	printf("\n\n\t\t\t\t\t************************************\n");
+	printf("\t\t\t\t\t\tWelcome to my library\n");
+	printf("\t\t\t\t\t************************************\n");
+}
+
+void adminLogin()
+{
+	int a,f=0,i=0;
+	char bn[50];
+	acategory:
+		{
+			printf("\nPlease choose the category:\n");
+			printf("\t1.Add book\n\t2.View issued books\n\t3.View stocks\n\t4.view student details\n\t5.Logout\n");
+			scanf("%d",&a);
+			if(a==1)
+			{
+			    system("clear");
+			    //system("cls");
+			    welcome();
+			    printf("\nEnter book name:\n");
+    			scanf(" %[^\n]",b[bkc-2022].bn);
+    			printf("Enter author name:\n");
+    			scanf(" %[^\n]",b[bkc-2022].an);
+    			printf("Enter number of copies:\n");
+    			scanf("%d",&b[bkc-2022].nc);
+    			b[bkc-2022].isbn=bkc;
+    			b[bkc-2022].lc=0;
+    			bkc++;
+    			system("clear");
+    			//system("cls");
+    			welcome();
+    			printf("\n\nYour book added successfully!!..\n");
+    			goto acategory;
+			}
+			else if(a==2)
+			{
+				//system("cls");
+				system("clear");
+				welcome();
+				while(i<(bkc-2022))
+                {
+                  if(b[i].lc)
+                  {
+                    f++;
+                    break;
+                  }
+                  i++;
+                }
+                   if(f)
+                   {
+                      printf("Book Name\t\tAuthor Name\t\tISBN\t\tnumber Of Copies Lended \n");
+                      while(i<(bkc-2022))
+                      {
+                          printf("%s\t\t\t%s\t\t\t%d\t\t\t%d\n",b[i].bn,b[i].an,b[i].isbn,b[i].lc);
+                          i++;
+                       }
+                   }
+                    else
+                    {
+                    	printf("\n\tNo Books are Lended \n");
+                    	goto acategory;
+				         //system("clear");
+					}	
+			}  
+			else if(a==3)
+			{
+			    system("clear");
+			    //system("cls");
+			    bookDetails();
+			    goto acategory;
+			}
+			else if(a==4)
+			{
+				//system("cls");
+				system("clear");
+				studentDetails();
+				system("clear");
+				welcome();
+				goto acategory;
+			}
+			else if(a==5)
+			{
+				//system("cls");
+				system("clear");
+				f=1;
+			}
+		}
+}
+
+void signUp()
+{
+	int l;
+	printf("Enter your name:\n");
+	scanf(" %[^\n]",s[stc-100].sn);
+	printf("\nYour register number is %d\n",stc);
+	printf("\ncreate password \n");
+	password:
+	printf("Password must be above 6 characters\n");
+	scanf(" %[^\n]",s[stc-100].pw);
+	l=strlen(s[stc-100].pw);
+	if(l<6)
+	{
+		//system("cls");
+		//system("clear");
+		printf("\n");
+		goto password;
+	}
+	s[stc-100].bkid=0;
+	s[stc-100].bkl=0;
+	stc++;
+	//system("cls");
+	system("clear");
+	welcome();
+	printf("Registered successfully!!..\n");
+}
+
+void stLogin(int rg)
+{
+	int c,is,l=1;
+	stLoCat:
+		{
+		    printf("Welcome,%s\n",s[rg].sn);
+			printf("\n1.Lend book\n2.Return book\n3.View books\n4.Exit\n");
+			scanf("%d",&c);
+			//system("cls");
+			system("clear");
+			if(c==1)
+			{
+				if(s[rg].bkl==3)
+				{
+				    printf("Welcome,%s\n",s[rg].sn);
+				    printf("You are not allowed to take book,please return your books to lend more.\n");
+				}
+			  else
+			  {
+			  	welcome();
+			  	printf("\n\nWelcome,%s\n",s[rg].sn);
+					printf("\tEnter ISBN to lend book:\n");
+					scanf("%d",&is);
+					if(is<bkc && (b[is-2022].nc-b[is-2022].lc)>0)
+					{
+						s[rg].bkid=is;
+	                    s[rg].bkl=l++;
+	                    b[is-2022].lc++;
+	                    printf("You lended the book successfully!\n");
+	                    printf("\n");
+	                    //system("cls");
+	                    system("clear");
+	                    welcome();
+	                    goto stLoCat;
+					}	
+					else
+					{
+					    printf("Welcome,%s\n",s[rg].sn);
+						printf("Book not found\n");
+						goto stLoCat;
+					}
+			    }
+			}
+			else if(c==2)
+			{
+				//system("cls");
+				printf("Welcome,%s\n",s[rg].sn);
+				system("clear");
+				printf("Enter ISBN to return book:\n");
+				scanf("%d",&is);
+	            s[rg].bkid=is;
+	            if(is==s[rg].bkid)
+	            {
+	                s[rg].bkid=0;
+	                s[rg].bkl=0;
+	                b[is-101].lc--;
+	                printf("You returned the book successfully!!..\n");
+	            }
+	            else
+	            {
+	                printf("Welcome,%s\n",s[rg].sn);
+	                printf("You haven't Lended that book!!!........\n");
+                }
+                //system("cls");
+                system("clear");
+                goto stLoCat;
+			}
+			else if(c==3)
+			{
+				//system("cls");
+				system("clear");
+				bookDetails();
+				printf("Welcome,%s\n",s[rg].sn);
+				goto stLoCat;
+			}
+		}
+	
+}
+void bookDetails()
+{
+    int i=0;
+    if(bkc==2022)
+    {
+        welcome();
+        printf("\n\n\tNo books are added!!..\n");	
+	}
+    else
+    {
+    	welcome();
+        printf("\n\n\t\tBook name\t\tAuthor name\t\tNo.of copies\t\tISBN\n");
+        while(i<(bkc-2022))
+        {
+        	printf("\t\t%s\t\t\t%s\t\t\t%d\t\t\t%d\n\n",b[i].bn,b[i].an,b[i].nc-b[i].lc,b[i].isbn);
+            ++i;
+		}
+        
+    }
+}
+
+void studentDetails()
+{
+	int i=0;
+	if(stc==100)
+	{
+	    printf("No students are found!!..");
+	    system("clear");
+	}
+	else
+	{
+    	printf("Student name\tLend books\tBook ISBN\n");
+    	while(i<(stc-100))
+    	{
+    		printf("%s\t\t%d\t\t%d",s[i].sn,s[i].bkl,s[i].bkid);
+    		i++;
+    	}
+	}
+}
